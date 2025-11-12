@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM Empresarial</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Tela de Login -->
+    <div id="login-screen" class="screen active">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>CRM Empresarial</h1>
+                <p>Faça login para acessar o sistema</p>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Usuário:</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="btn-primary">Entrar</button>
+            </form>
+            <div class="login-footer">
+                <p>Use: admin / admin</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sistema Principal -->
+    <div id="main-screen" class="screen">
+        <!-- Cabeçalho -->
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">CRM</div>
+                <h1>CRM Empresarial</h1>
+            </div>
+            <div class="header-right">
+                <span id="user-name">Usuário</span>
+                <button id="logout-btn" class="btn-secondary">Sair</button>
+            </div>
+        </header>
+
+        <div class="container">
+            <!-- Barra Lateral -->
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <ul>
+                        <li><a href="#" class="nav-link active" data-section="dashboard">Dashboard</a></li>
+                        <li><a href="#" class="nav-link" data-section="clientes">Clientes</a></li>
+                        <li><a href="#" class="nav-link" data-section="negocios">Negócios</a></li>
+                        <li><a href="#" class="nav-link" data-section="tarefas">Tarefas</a></li>
+                        <li><a href="#" class="nav-link" data-section="relatorios">Relatórios</a></li>
+                        <li><a href="#" class="nav-link" data-section="configuracoes">Configurações</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Conteúdo Principal -->
+            <main class="main-content">
+                <!-- Dashboard -->
+                <section id="dashboard" class="content-section active">
+                    <div class="section-header">
+                        <h2>Dashboard</h2>
+                        <p>Visão geral do seu negócio</p>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Clientes Ativos</h3>
+                            <div class="stat-value" id="clientes-ativos">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Negócios Abertos</h3>
+                            <div class="stat-value" id="negocios-abertos">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Valor Estimado</h3>
+                            <div class="stat-value" id="valor-estimado">R$ 0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Tarefas Pendentes</h3>
+                            <div class="stat-value" id="tarefas-pendentes">0</div>
+                        </div>
+                    </div>
+                    <div class="charts-container">
+                        <div class="chart-card">
+                            <h3>Negócios por Etapa</h3>
+                            <div id="chart-negocios-etapa" class="chart"></div>
+                        </div>
+                        <div class="chart-card">
+                            <h3>Clientes por Categoria</h3>
+                            <div id="chart-clientes-categoria" class="chart"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Clientes -->
+                <section id="clientes" class="content-section">
+                    <div class="section-header">
+                        <h2>Clientes</h2>
+                        <div class="section-actions">
+                            <button id="add-cliente-btn" class="btn-primary">Adicionar Cliente</button>
+                        </div>
+                    </div>
+                    <div class="filters">
+                        <input type="text" id="search-cliente" placeholder="Buscar por nome...">
+                        <select id="filter-categoria">
+                            <option value="">Todas as categorias</option>
+                            <option value="ativo">Ativo</option>
+                            <option value="potencial">Potencial</option>
+                            <option value="inativo">Inativo</option>
+                        </select>
+                        <select id="filter-cidade">
+                            <option value="">Todas as cidades</option>
+                        </select>
+                    </div>
+                    <div class="table-container">
+                        <table id="clientes-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome/Empresa</th>
+                                    <th>E-mail</th>
+                                    <th>Telefone</th>
+                                    <th>Categoria</th>
+                                    <th>Cidade</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clientes-list">
+                                <!-- Lista de clientes será preenchida via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Negócios -->
+                <section id="negocios" class="content-section">
+                    <div class="section-header">
+                        <h2>Negócios</h2>
+                        <div class="section-actions">
+                            <button id="add-negocio-btn" class="btn-primary">Adicionar Negócio</button>
+                        </div>
+                    </div>
+                    <div class="funil-container">
+                        <div class="funil-etapa">
+                            <h3>Prospecção</h3>
+                            <div class="negocios-list" data-etapa="prospeccao">
+                                <!-- Negócios nesta etapa -->
+                            </div>
+                        </div>
+                        <div class="funil-etapa">
+                            <h3>Qualificação</h3>
+                            <div class="negocios-list" data-etapa="qualificacao">
+                                <!-- Negócios nesta etapa -->
+                            </div>
+                        </div>
+                        <div class="funil-etapa">
+                            <h3>Proposta</h3>
+                            <div class="negocios-list" data-etapa="proposta">
+                                <!-- Negócios nesta etapa -->
+                            </div>
+                        </div>
+                        <div class="funil-etapa">
+                            <h3>Negociação</h3>
+                            <div class="negocios-list" data-etapa="negociacao">
+                                <!-- Negócios nesta etapa -->
+                            </div>
+                        </div>
+                        <div class="funil-etapa">
+                            <h3>Fechamento</h3>
+                            <div class="negocios-list" data-etapa="fechamento">
+                                <!-- Negócios nesta etapa -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tarefas -->
+                <section id="tarefas" class="content-section">
+                    <div class="section-header">
+                        <h2>Tarefas</h2>
+                        <div class="section-actions">
+                            <button id="add-tarefa-btn" class="btn-primary">Adicionar Tarefa</button>
+                        </div>
+                    </div>
+                    <div class="tarefas-container">
+                        <div class="tarefas-pendentes">
+                            <h3>Tarefas Pendentes</h3>
+                            <div id="tarefas-pendentes-list">
+                                <!-- Tarefas pendentes -->
+                            </div>
+                        </div>
+                        <div class="tarefas-concluidas">
+                            <h3>Tarefas Concluídas</h3>
+                            <div id="tarefas-concluidas-list">
+                                <!-- Tarefas concluídas -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Relatórios -->
+                <section id="relatorios" class="content-section">
+                    <div class="section-header">
+                        <h2>Relatórios</h2>
+                    </div>
+                    <div class="relatorios-grid">
+                        <div class="relatorio-card">
+                            <h3>Resumo de Clientes</h3>
+                            <div id="relatorio-clientes" class="relatorio-content">
+                                <!-- Conteúdo do relatório -->
+                            </div>
+                        </div>
+                        <div class="relatorio-card">
+                            <h3>Desempenho de Negócios</h3>
+                            <div id="relatorio-negocios" class="relatorio-content">
+                                <!-- Conteúdo do relatório -->
+                            </div>
+                        </div>
+                        <div class="relatorio-card">
+                            <h3>Atividades por Período</h3>
+                            <div id="relatorio-atividades" class="relatorio-content">
+                                <!-- Conteúdo do relatório -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Configurações -->
+                <section id="configuracoes" class="content-section">
+                    <div class="section-header">
+                        <h2>Configurações</h2>
+                    </div>
+                    <div class="configuracoes-container">
+                        <div class="config-card">
+                            <h3>Backup e Restauração</h3>
+                            <div class="config-actions">
+                                <button id="export-data-btn" class="btn-primary">Exportar Dados</button>
+                                <button id="import-data-btn" class="btn-secondary">Importar Dados</button>
+                                <input type="file" id="import-file" accept=".json" style="display: none;">
+                            </div>
+                        </div>
+                        <div class="config-card">
+                            <h3>Limpar Dados</h3>
+                            <p>Esta ação irá remover todos os dados do sistema. Use com cuidado.</p>
+                            <button id="clear-data-btn" class="btn-danger">Limpar Todos os Dados</button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal para Clientes -->
+    <div id="cliente-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="cliente-modal-title">Adicionar Cliente</h3>
+                <span class="close">&times;</span>
+            </div>
+            <form id="cliente-form">
+                <input type="hidden" id="cliente-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cliente-nome">Nome/Empresa:</label>
+                        <input type="text" id="cliente-nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cliente-email">E-mail:</label>
+                        <input type="email" id="cliente-email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cliente-telefone">Telefone:</label>
+                        <input type="text" id="cliente-telefone">
+                    </div>
+                    <div class="form-group">
+                        <label for="cliente-cnpj-cpf">CNPJ/CPF:</label>
+                        <input type="text" id="cliente-cnpj-cpf">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cliente-endereco">Endereço:</label>
+                        <input type="text" id="cliente-endereco">
+                    </div>
+                    <div class="form-group">
+                        <label for="cliente-cidade">Cidade:</label>
+                        <input type="text" id="cliente-cidade">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cliente-estado">Estado:</label>
+                        <input type="text" id="cliente-estado">
+                    </div>
+                    <div class="form-group">
+                        <label for="cliente-categoria">Categoria:</label>
+                        <select id="cliente-categoria" required>
+                            <option value="ativo">Ativo</option>
+                            <option value="potencial">Potencial</option>
+                            <option value="inativo">Inativo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cliente-responsavel">Responsável:</label>
+                    <input type="text" id="cliente-responsavel">
+                </div>
+                <div class="form-group">
+                    <label for="cliente-observacoes">Observações:</label>
+                    <textarea id="cliente-observacoes" rows="3"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" id="cancel-cliente">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Negócios -->
+    <div id="negocio-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="negocio-modal-title">Adicionar Negócio</h3>
+                <span class="close">&times;</span>
+            </div>
+            <form id="negocio-form">
+                <input type="hidden" id="negocio-id">
+                <div class="form-group">
+                    <label for="negocio-cliente">Cliente:</label>
+                    <select id="negocio-cliente" required>
+                        <option value="">Selecione um cliente</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="negocio-nome">Nome da Oportunidade:</label>
+                    <input type="text" id="negocio-nome" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="negocio-valor">Valor:</label>
+                        <input type="number" id="negocio-valor" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="negocio-etapa">Etapa:</label>
+                        <select id="negocio-etapa" required>
+                            <option value="prospeccao">Prospecção</option>
+                            <option value="qualificacao">Qualificação</option>
+                            <option value="proposta">Proposta</option>
+                            <option value="negociacao">Negociação</option>
+                            <option value="fechamento">Fechamento</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="negocio-probabilidade">Probabilidade (%):</label>
+                        <input type="number" id="negocio-probabilidade" min="0" max="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="negocio-data">Data Prevista:</label>
+                        <input type="date" id="negocio-data" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="negocio-observacoes">Observações:</label>
+                    <textarea id="negocio-observacoes" rows="3"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" id="cancel-negocio">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Tarefas -->
+    <div id="tarefa-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="tarefa-modal-title">Adicionar Tarefa</h3>
+                <span class="close">&times;</span>
+            </div>
+            <form id="tarefa-form">
+                <input type="hidden" id="tarefa-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="tarefa-tipo">Tipo:</label>
+                        <select id="tarefa-tipo" required>
+                            <option value="ligacao">Ligação</option>
+                            <option value="reuniao">Reunião</option>
+                            <option value="follow-up">Follow-up</option>
+                            <option value="visita">Visita</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tarefa-cliente">Cliente:</label>
+                        <select id="tarefa-cliente">
+                            <option value="">Nenhum</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="tarefa-data">Data:</label>
+                        <input type="date" id="tarefa-data" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tarefa-hora">Hora:</label>
+                        <input type="time" id="tarefa-hora" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tarefa-descricao">Descrição:</label>
+                    <textarea id="tarefa-descricao" rows="3" required></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" id="cancel-tarefa">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
