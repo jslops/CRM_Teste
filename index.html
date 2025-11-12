@@ -8,7 +8,7 @@
 </head>
 <body>
     <!-- Tela de Login -->
-    <div id="login-screen" class="screen active">
+    <div id="login-screen" class="screen">
         <div class="login-container">
             <div class="login-header">
                 <h1>CRM Empresarial</h1>
@@ -17,16 +17,16 @@
             <form id="login-form">
                 <div class="form-group">
                     <label for="username">Usuário:</label>
-                    <input type="text" id="username" required value="admin">
+                    <input type="text" id="username" required autocomplete="username">
                 </div>
                 <div class="form-group">
                     <label for="password">Senha:</label>
-                    <input type="password" id="password" required value="admin">
+                    <input type="password" id="password" required autocomplete="current-password">
                 </div>
                 <button type="submit" class="btn-primary">Entrar</button>
             </form>
             <div class="login-footer">
-                <p>Use: admin / admin</p>
+                <p>Use: <strong>admin</strong> / <strong>admin</strong></p>
             </div>
         </div>
     </div>

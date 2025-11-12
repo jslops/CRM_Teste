@@ -1,3 +1,93 @@
+/* ============================
+   CORREÇÕES DO SISTEMA DE LOGIN
+   ============================ */
+
+/* Garantir que as telas sejam completamente separadas */
+.screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* Tela de Login - Ocupa toda a tela */
+#login-screen {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    z-index: 1000;
+}
+
+#login-screen.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Sistema Principal - Ocupa toda a tela */
+#main-screen {
+    background-color: #f5f7fa;
+    z-index: 900;
+}
+
+/* Garantir que o container principal ocupe toda a altura */
+.container {
+    min-height: 100vh;
+    display: flex;
+}
+
+/* Remover qualquer overflow que permita rolagem para ver o sistema */
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body.login-active {
+    overflow: auto;
+}
+
+body.system-active {
+    overflow: hidden;
+}
+
+/* Ajustes específicos para a tela de login */
+.login-container {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 400px;
+    margin: 1rem;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-header h1 {
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+
+.login-header p {
+    color: var(--gray-color);
+}
+
+.login-footer {
+    text-align: center;
+    margin-top: 1rem;
+    color: var(--gray-color);
+    font-size: 0.9rem;
+}
+
 /* Reset e configurações gerais */
 * {
     margin: 0;
@@ -25,47 +115,6 @@ body {
     background-color: #f5f7fa;
     color: #333;
     line-height: 1.6;
-}
-
-/* Telas */
-.screen {
-    display: none;
-}
-
-.screen.active {
-    display: block;
-}
-
-/* Tela de Login */
-#login-screen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-}
-
-.login-container {
-    background: var(--white);
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    width: 100%;
-    max-width: 400px;
-}
-
-.login-header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.login-header h1 {
-    color: var(--secondary-color);
-    margin-bottom: 0.5rem;
-}
-
-.login-header p {
-    color: var(--gray-color);
 }
 
 /* Formulários */
@@ -581,6 +630,65 @@ tr:hover {
     gap: 1rem;
     padding: 1.5rem;
     border-top: 1px solid #eee;
+}
+
+/* Estilos customizados para categorias e botões */
+.categoria.ativo { 
+    color: #27ae60; 
+    font-weight: bold; 
+    padding: 2px 6px;
+    border-radius: 4px;
+    background-color: #eafaf1;
+}
+.categoria.potencial { 
+    color: #f39c12; 
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background-color: #fef5e6;
+}
+.categoria.inativo { 
+    color: #e74c3c; 
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background-color: #fdedec;
+}
+
+.acoes button {
+    padding: 0.25rem 0.5rem;
+    margin: 0 0.125rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.btn-editar { 
+    background-color: #3498db; 
+    color: white; 
+}
+.btn-excluir { 
+    background-color: #e74c3c; 
+    color: white; 
+}
+.btn-concluir { 
+    background-color: #27ae60; 
+    color: white; 
+}
+
+.negocio-actions button {
+    padding: 0.25rem 0.5rem;
+    margin: 0.125rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.7rem;
+}
+
+.tarefa-item.atrasada {
+    border-left-color: #e74c3c !important;
+    background-color: #fdedec;
 }
 
 /* Responsividade */
